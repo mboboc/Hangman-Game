@@ -74,26 +74,30 @@ def game():
             print("\n")
             letter = input()
             letter = letter.lower()
-            if letter in word:
-                if letter in user_word:
-                    pos = user_word[::-1].index(letter)
-                else:
-                    pos = 0
-                idx = word.index(letter, pos)
-                user_word[idx] = letter
-                if "_" not in user_word:
-                    guessed = 1
-                    print("YOU GUESSED RIGHT! You WON!\nWant to go to NEXT LEVEL?\nPress ENTER ...\n\n"
-                          "Press q if you want to leave...")
-                    action = "_"
-                    while action != "" and action != 'q':
-                        action = input()
-                        action = action.lower()
-                    if action == "":
-                        break
+            if letter != "" and letter != "\n":
+                if letter in word:
+                    if letter in user_word:
+                        pos = user_word[::-1].index(letter)
                     else:
-                        print("Quitting...")
-                        return
+                        pos = 0
+                    idx = word.index(letter, pos)
+                    user_word[idx] = letter
+                    if "_" not in user_word:
+                        print("Guessed word: {}".format(word.upper()))
+                        guessed = 1
+                        print("You WON!\nWant to go to the NEXT LEVEL?\nPress ENTER ...\n\n"
+                              "Press q if you want to leave...")
+                        action = "_"
+                        while action != "" and action != 'q':
+                            action = input()
+                            action = action.lower()
+                        if action == "":
+                            break
+                        else:
+                            print("Quitting...")
+                            return
+                else:
+                    state_idx += 1
             else:
                 state_idx += 1
         if state_idx == len(states):
